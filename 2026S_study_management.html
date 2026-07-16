@@ -294,6 +294,85 @@
         }
 
         .summary-box strong { color: #333; }
+
+        /* photo field helpers */
+        .field-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .field-header .field-label { margin-bottom: 0; }
+
+        .example-link {
+            background: none;
+            border: none;
+            font-size: 12px;
+            font-weight: 600;
+            color: #5c6ff0;
+            cursor: pointer;
+            text-decoration: underline;
+            font-family: inherit;
+            padding: 0;
+        }
+
+        .field-hint {
+            font-size: 12px;
+            color: #888;
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+
+        /* example photo modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(20, 20, 40, 0.55);
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            z-index: 100;
+        }
+
+        .modal-overlay.open { display: flex; }
+
+        .modal-box {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            max-width: 420px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            text-align: center;
+        }
+
+        .modal-box h3 {
+            font-size: 15px;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin-bottom: 12px;
+        }
+
+        .modal-box img {
+            width: 100%;
+            border-radius: 10px;
+            border: 1.5px solid #e4e6f0;
+            display: block;
+        }
+
+        .modal-box p {
+            font-size: 13px;
+            color: #666;
+            margin-top: 12px;
+            line-height: 1.6;
+        }
+
+        .modal-close {
+            margin-top: 16px;
+        }
     </style>
 </head>
 <body>
@@ -384,8 +463,12 @@
             <input type="number" id="participants" min="1" max="30" placeholder="참여 인원 수 입력">
         </div>
         <div class="form-group">
-            <label class="field-label" for="photo">인증 사진</label>
+            <div class="field-header">
+                <label class="field-label" for="photo">인증 사진</label>
+                <button type="button" class="example-link" onclick="openExample()">예시 보기</button>
+            </div>
             <input type="file" id="photo" accept="image/*" onchange="previewPhoto(this)">
+            <div class="field-hint">사진에는 참여 인원 전원의 모습과 촬영 날짜·시간이 함께 보이도록 찍어 주세요!</div>
             <div class="photo-preview" id="photo-preview">
                 <img id="preview-img" src="" alt="인증 사진 미리보기">
             </div>
@@ -403,6 +486,16 @@
         <p>스터디 인증이 정상적으로 기록되었습니다.</p>
         <div class="summary-box" id="summary-box"></div>
         <button class="btn btn-secondary" onclick="resetForm()" style="margin-top: 20px;">다시 인증하기</button>
+    </div>
+</div>
+
+<!-- 인증 사진 예시 모달 -->
+<div class="modal-overlay" id="example-modal" onclick="closeExampleOnOverlay(event)">
+    <div class="modal-box">
+        <h3>📸 인증 사진 예시</h3>
+        <img src="https://raw.githubusercontent.com/lim5247/DArtB_study_management/main/스터디인증사진예시.jpg" alt="인증 사진 예시">
+        <p>사진에는 참여 인원 전원의 모습과 촬영 날짜·시간이 함께 보이도록 찍어 주세요!</p>
+        <button class="btn btn-secondary modal-close" onclick="closeExample()">닫기</button>
     </div>
 </div>
 
@@ -508,6 +601,19 @@
         selectedMode = mode;
         document.getElementById("opt-offline").classList.toggle("selected", mode === "offline");
         document.getElementById("opt-online").classList.toggle("selected", mode === "online");
+    }
+
+    // ── 인증 사진 예시 모달 ──
+    function openExample() {
+        document.getElementById("example-modal").classList.add("open");
+    }
+
+    function closeExample() {
+        document.getElementById("example-modal").classList.remove("open");
+    }
+
+    function closeExampleOnOverlay(e) {
+        if (e.target === e.currentTarget) closeExample();
     }
 
     // ── 사진 미리보기 ──

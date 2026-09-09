@@ -704,7 +704,6 @@
             <select id="filter-round" onchange="applyFilters()">
                 <option value="">전체 주차</option>
             </select>
-            <input type="text" id="filter-respondent" placeholder="응답자 이름 검색" oninput="applyFilters()">
         </div>
         <div class="loading" id="history-loading">불러오는 중...</div>
         <div class="history-empty" id="history-empty">아직 인증 기록이 없습니다.</div>
@@ -1105,12 +1104,10 @@
     function applyFilters() {
         const study = document.getElementById("filter-study").value;
         const round = document.getElementById("filter-round").value;
-        const q     = document.getElementById("filter-respondent").value.trim().toLowerCase();
 
         const filtered = ALL_SUBMISSIONS.filter(r =>
             (!study || r.studyName === study) &&
-            (!round || r.round === round) &&
-            (!q || (r.respondent || "").toLowerCase().includes(q))
+            (!round || r.round === round)
         ).sort((a, b) => (b.studyDate || "").localeCompare(a.studyDate || ""));
 
         document.getElementById("history-empty").style.display = filtered.length ? "none" : "block";

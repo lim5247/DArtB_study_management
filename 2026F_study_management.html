@@ -562,9 +562,9 @@
             <div class="form-group">
                 <label class="field-label">기수</label>
                 <div class="radio-group">
-                    <div class="radio-card" id="opt-5" onclick="selectGen('5기')">5기</div>
-                    <div class="radio-card" id="opt-6" onclick="selectGen('6기')">6기</div>
+                    <div class="radio-card" id="opt-4" onclick="selectGen('4기')">4기</div>
                     <div class="radio-card" id="opt-7" onclick="selectGen('7기')">7기</div>
+                    <div class="radio-card" id="opt-8" onclick="selectGen('8기')">8기</div>
                 </div>
             </div>
             <div class="form-group">
@@ -814,7 +814,7 @@
     // ══════════════════ 기수 선택 ══════════════════
     function selectGen(gen) {
         selectedGen = gen;
-        ["5기", "6기", "7기"].forEach(g => {
+        ["4기", "7기", "8기"].forEach(g => {
             document.getElementById(`opt-${g[0]}`).classList.toggle("selected", g === gen);
         });
     }
@@ -1036,7 +1036,7 @@
         document.getElementById("submit-btn").disabled = false;
         document.getElementById("loading").style.display = "none";
         selectedGen = ""; selectedMode = ""; matchedPeriod = null; isLate = false;
-        ["opt-5", "opt-6", "opt-7", "opt-offline", "opt-online"].forEach(id =>
+        ["opt-4", "opt-7", "opt-8", "opt-offline", "opt-online"].forEach(id =>
             document.getElementById(id).classList.remove("selected")
         );
         hide("step4"); hide("step2"); hide("step3"); show("step1");
